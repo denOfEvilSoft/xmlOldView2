@@ -45,7 +45,7 @@ namespace xmlOldViewer
             this.l_names = new System.Windows.Forms.ListBox();
             this.g_data = new System.Windows.Forms.GroupBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.label16 = new System.Windows.Forms.Label();
+            this.l_changeRate = new System.Windows.Forms.Label();
             this.label17 = new System.Windows.Forms.Label();
             this.l_changeMinorInjury = new System.Windows.Forms.Label();
             this.l_changeDead = new System.Windows.Forms.Label();
@@ -57,7 +57,6 @@ namespace xmlOldViewer
             this.label13 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.l_changeDayOfWeek = new System.Windows.Forms.Label();
             this.l_changeTime = new System.Windows.Forms.Label();
@@ -69,7 +68,6 @@ namespace xmlOldViewer
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.webBrowser1 = new System.Windows.Forms.WebBrowser();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -149,7 +147,6 @@ namespace xmlOldViewer
             this.c_location1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.c_location1.FormattingEnabled = true;
             this.c_location1.Items.AddRange(new object[] {
-            "가평군",
             "고양시",
             "과천시",
             "광명시",
@@ -218,7 +215,7 @@ namespace xmlOldViewer
             this.l_exitLabel.AutoSize = true;
             this.l_exitLabel.BackColor = System.Drawing.Color.DimGray;
             this.l_exitLabel.ForeColor = System.Drawing.Color.Transparent;
-            this.l_exitLabel.Location = new System.Drawing.Point(1071, 9);
+            this.l_exitLabel.Location = new System.Drawing.Point(769, 9);
             this.l_exitLabel.Name = "l_exitLabel";
             this.l_exitLabel.Size = new System.Drawing.Size(13, 12);
             this.l_exitLabel.TabIndex = 3;
@@ -230,7 +227,7 @@ namespace xmlOldViewer
             this.l_windowMinimize.AutoSize = true;
             this.l_windowMinimize.BackColor = System.Drawing.Color.DimGray;
             this.l_windowMinimize.ForeColor = System.Drawing.Color.Transparent;
-            this.l_windowMinimize.Location = new System.Drawing.Point(1054, 9);
+            this.l_windowMinimize.Location = new System.Drawing.Point(752, 9);
             this.l_windowMinimize.Name = "l_windowMinimize";
             this.l_windowMinimize.Size = new System.Drawing.Size(11, 12);
             this.l_windowMinimize.TabIndex = 4;
@@ -251,18 +248,17 @@ namespace xmlOldViewer
             // 
             this.g_data.Controls.Add(this.groupBox4);
             this.g_data.Controls.Add(this.groupBox3);
-            this.g_data.Controls.Add(this.webBrowser1);
             this.g_data.Controls.Add(this.l_names);
             this.g_data.Location = new System.Drawing.Point(281, 32);
             this.g_data.Name = "g_data";
-            this.g_data.Size = new System.Drawing.Size(803, 306);
+            this.g_data.Size = new System.Drawing.Size(501, 306);
             this.g_data.TabIndex = 6;
             this.g_data.TabStop = false;
             this.g_data.Text = "결과 (검색 대기중)";
             // 
             // groupBox4
             // 
-            this.groupBox4.Controls.Add(this.label16);
+            this.groupBox4.Controls.Add(this.l_changeRate);
             this.groupBox4.Controls.Add(this.label17);
             this.groupBox4.Controls.Add(this.l_changeMinorInjury);
             this.groupBox4.Controls.Add(this.l_changeDead);
@@ -274,7 +270,6 @@ namespace xmlOldViewer
             this.groupBox4.Controls.Add(this.label13);
             this.groupBox4.Controls.Add(this.label14);
             this.groupBox4.Controls.Add(this.label15);
-            this.groupBox4.Controls.Add(this.button1);
             this.groupBox4.Location = new System.Drawing.Point(174, 155);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(319, 144);
@@ -282,14 +277,14 @@ namespace xmlOldViewer
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "근처 사고 정보";
             // 
-            // label16
+            // l_changeRate
             // 
-            this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(73, 107);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(29, 12);
-            this.label16.TabIndex = 31;
-            this.label16.Text = "이름";
+            this.l_changeRate.AutoSize = true;
+            this.l_changeRate.Location = new System.Drawing.Point(73, 107);
+            this.l_changeRate.Name = "l_changeRate";
+            this.l_changeRate.Size = new System.Drawing.Size(29, 12);
+            this.l_changeRate.TabIndex = 31;
+            this.l_changeRate.Text = "이름";
             // 
             // label17
             // 
@@ -389,15 +384,6 @@ namespace xmlOldViewer
             this.label15.Size = new System.Drawing.Size(69, 12);
             this.label15.TabIndex = 20;
             this.label15.Text = "총 사상자 : ";
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(259, 96);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(54, 23);
-            this.button1.TabIndex = 8;
-            this.button1.Text = "지도 >";
-            this.button1.UseVisualStyleBackColor = true;
             // 
             // groupBox3
             // 
@@ -503,21 +489,11 @@ namespace xmlOldViewer
             this.label2.TabIndex = 10;
             this.label2.Text = "관리기관 :";
             // 
-            // webBrowser1
-            // 
-            this.webBrowser1.Location = new System.Drawing.Point(499, 19);
-            this.webBrowser1.MinimumSize = new System.Drawing.Size(20, 20);
-            this.webBrowser1.Name = "webBrowser1";
-            this.webBrowser1.ScrollBarsEnabled = false;
-            this.webBrowser1.Size = new System.Drawing.Size(293, 281);
-            this.webBrowser1.TabIndex = 7;
-            this.webBrowser1.WebBrowserShortcutsEnabled = false;
-            // 
             // mainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1094, 349);
+            this.ClientSize = new System.Drawing.Size(794, 349);
             this.Controls.Add(this.g_data);
             this.Controls.Add(this.l_windowMinimize);
             this.Controls.Add(this.l_exitLabel);
@@ -557,8 +533,6 @@ namespace xmlOldViewer
         private System.Windows.Forms.ListBox l_names;
         private System.Windows.Forms.GroupBox g_data;
         private System.Windows.Forms.Button b_export;
-        private System.Windows.Forms.WebBrowser webBrowser1;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button b_searchAll;
         private System.Windows.Forms.CheckBox c_searchCheck;
         private System.Windows.Forms.Label label2;
@@ -583,7 +557,7 @@ namespace xmlOldViewer
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Label label15;
-        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.Label l_changeRate;
         private System.Windows.Forms.Label label17;
     }
 }

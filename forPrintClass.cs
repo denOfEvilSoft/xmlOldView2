@@ -21,6 +21,7 @@ namespace xmlOldViewer
         public int dead { get; set; }
         public int severelyInjured { get; set; }
         public int minorInjury { get; set; }
+        public double rate { get; set; }
 
         public string getName()
         {
