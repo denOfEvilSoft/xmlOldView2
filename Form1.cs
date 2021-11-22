@@ -16,6 +16,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+using System.IO;
 using System.Xml;
 
 using MySql.Data.MySqlClient;
@@ -556,43 +557,59 @@ namespace xmlOldViewer
         private void b_export_Click(object sender, EventArgs e)
         {
             this.Cursor = Cursors.WaitCursor;
-            // try
-            if(l_names.Items.Count == 0)
+            try
             {
-                MessageBox.Show("먼저 검색부터 해주세요.");
-                return;
-            }
-            string fileName = "xmlExport_";
-            if(l_names.Items.Count == 221)
-            {
-                fileName += "ALL_";
-                fileName += DateTime.Now;
-            }
-            else if(t_locationInput.Text == "추가 검색" || t_locationInput.Text == "" || t_locationInput.Text ==" ")
-            {
-                fileName += c_location1.SelectedItem + "_";
-                fileName += DateTime.Now;
-            }
-            else
-            {
-                fileName += c_location1.SelectedItem + "_";
-                fileName += t_locationInput.Text + "_";
-                fileName += DateTime.Now;
-            }
-            using (XmlWriter wr = XmlWriter.Create(@"C:\Users\user\Desktop\" + fileName + ".xml"))
-            {
-                wr.WriteStartDocument();
-                wr.WriteStartElement("경기도무료급식소");
-
-                for(int index = 0; index < l_names.Items.Count; index++)
+                if (l_names.Items.Count == 0)
                 {
-                    wr.WriteStartElement("급식소");
-                    l_names.SelectedIndex = index;
-                    forPrintClass getClass = (forPrintClass)l_names.SelectedItem;
-                    wr.WriteElementString("주소", getClass.loaction);
+                    MessageBox.Show("먼저 검색부터 해주세요.");
+                    return;
                 }
+                string fileName = "xmlExport_";
+                if (l_names.Items.Count == 221)
+                {
+                    fileName += "ALL_";
+                    fileName += DateTime.Now;
+                    fileName += ".xml";
+                }
+                else if (t_locationInput.Text == "추가 검색" || t_locationInput.Text == "" || t_locationInput.Text == " ")
+                {
+                    fileName += c_location1.SelectedItem + "_";
+                    fileName += DateTime.Now;
+                    fileName += ".xml";
+                }
+                else
+                {
+                    fileName += c_location1.SelectedItem + "_";
+                    fileName += t_locationInput.Text + "_";
+                    fileName += DateTime.Now;
+                    fileName += ".xml";
+                }
+                string[] path = { @"C:\\Users\\user\\Desktop", fileName };
+                string fullPath = Path.Combine(path);
+                using (XmlWriter wr = XmlWriter.Create(fullPath))
+                {
+                    wr.WriteStartDocument();
+                    wr.WriteStartElement("경기도무료급식소");
+
+                    for (int index = 0; index < l_names.Items.Count; index++)
+                    {
+                        wr.WriteStartElement("급식소");
+                        l_names.SelectedIndex = index;
+                        forPrintClass getClass = (forPrintClass)l_names.SelectedItem;
+                        wr.WriteElementString("주소", getClass.loaction);
+                        wr.WriteEndElement();
+                    }
+                    wr.WriteEndElement();
+                    wr.WriteEndDocument();
+                }
+                this.Cursor = Cursors.Default;
             }
-            this.Cursor = Cursors.Default;
+            catch(Exception ex)
+            {
+                this.Cursor = Cursors.Default;
+                MessageBox.Show("xml export \n\n" + ex);
+            }
+            
         }
 
         private void l_names_SelectedIndexChanged(object sender, EventArgs e)
