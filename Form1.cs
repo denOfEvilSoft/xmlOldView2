@@ -556,6 +556,7 @@ namespace xmlOldViewer
 
         private void b_export_Click(object sender, EventArgs e)
         {
+            // 파일 브라우저 폼 띄우고 그곳의 기본 이름을 정하자. 기본 경로는 바탕화면으로 하고
             this.Cursor = Cursors.WaitCursor;
             try
             {
@@ -584,9 +585,8 @@ namespace xmlOldViewer
                     fileName += DateTime.Now;
                     fileName += ".xml";
                 }
-                string[] path = { @"C:\\Users\\user\\Desktop", fileName };
-                string fullPath = Path.Combine(path);
-                using (XmlWriter wr = XmlWriter.Create(fullPath))
+                // fileName을 파일 이름으로 하게 바꿀 것
+                using (XmlWriter wr = XmlWriter.Create(@"C:\Users\user\Desktop\export.xml"))
                 {
                     wr.WriteStartDocument();
                     wr.WriteStartElement("경기도무료급식소");
@@ -596,7 +596,16 @@ namespace xmlOldViewer
                         wr.WriteStartElement("급식소");
                         l_names.SelectedIndex = index;
                         forPrintClass getClass = (forPrintClass)l_names.SelectedItem;
+                        wr.WriteElementString("이름", getClass.name);
                         wr.WriteElementString("주소", getClass.loaction);
+                        wr.WriteElementString("관리기관", getClass.institution);
+                        wr.WriteElementString("대상", getClass.target);
+                        wr.WriteElementString("시간", getClass.time);
+                        wr.WriteStartElement("사고정보");
+                        wr.WriteElementString("사망", getClass.dead.ToString());
+                        wr.WriteElementString("중상", getClass.severelyInjured.ToString());
+                        wr.WriteElementString("경상", getClass.minorInjury.ToString());
+                        wr.WriteEndElement();
                         wr.WriteEndElement();
                     }
                     wr.WriteEndElement();
