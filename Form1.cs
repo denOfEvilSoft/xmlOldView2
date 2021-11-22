@@ -16,6 +16,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+using System.Xml;
+
 using MySql.Data.MySqlClient;
 
 namespace xmlOldViewer
@@ -558,6 +560,14 @@ namespace xmlOldViewer
                 MessageBox.Show("먼저 검색부터 해주세요.");
                 return;
             }
+            XmlDocument xml = new XmlDocument();
+            XmlNode root = xml.CreateElement("root");
+            XmlNode comp = xml.CreateElement("new");
+            root.AppendChild(comp);
+            xml.AppendChild(root);
+            string path = "C:\\" + "test.xml";
+            xml.Save(path);
+            MessageBox.Show("asd");
         }
 
         private void l_names_SelectedIndexChanged(object sender, EventArgs e)
