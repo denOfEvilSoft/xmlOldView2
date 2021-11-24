@@ -4,7 +4,6 @@
  */
 
 
-
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -18,6 +17,7 @@ using System.Windows.Forms;
 
 using System.IO;
 using System.Xml;
+using Microsoft.WindowsAPICodePack.Dialogs;
 
 using MySql.Data.MySqlClient;
 
@@ -565,7 +565,7 @@ namespace xmlOldViewer
                     MessageBox.Show("먼저 검색부터 해주세요.");
                     return;
                 }
-                string fileName = "xmlExport_";
+                string fileName = "\\xmlExport_";
                 if (l_names.Items.Count == 221)
                 {
                     fileName += "ALL_";
@@ -585,7 +585,18 @@ namespace xmlOldViewer
                     fileName += DateTime.Now;
                     fileName += ".xml";
                 }
-                // fileName을 파일 이름으로 하게 바꿀 것
+
+                FolderBrowserDialog select = new FolderBrowserDialog();
+                select.ShowDialog();
+                if(select.ShowDialog() == DialogResult.OK)
+                {
+                    string Path = select.SelectedPath;
+                    Path += fileName;
+                    MessageBox.Show(Path);
+                    return;
+                }
+                
+                
                 using (XmlWriter wr = XmlWriter.Create(@"C:\Users\user\Desktop\export.xml"))
                 {
                     wr.WriteStartDocument();
@@ -600,6 +611,7 @@ namespace xmlOldViewer
                         wr.WriteElementString("주소", getClass.loaction);
                         wr.WriteElementString("관리기관", getClass.institution);
                         wr.WriteElementString("대상", getClass.target);
+                        wr.WriteElementString("날짜", getClass.dayOfTheWeek);
                         wr.WriteElementString("시간", getClass.time);
                         wr.WriteStartElement("사고정보");
                         wr.WriteElementString("사망", getClass.dead.ToString());

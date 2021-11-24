@@ -168,3 +168,5 @@ C:\Users\user\Source\Repos\denOfEvilSoft\xmlOldView2\obj\Debug\xmlOldViewer.cspr
 C:\Users\user\Source\Repos\denOfEvilSoft\xmlOldView2\obj\Debug\xmlOldViewer.csproj.CopyComplete
 C:\Users\user\Source\Repos\denOfEvilSoft\xmlOldView2\obj\Debug\xmlOldViewer.exe
 C:\Users\user\Source\Repos\denOfEvilSoft\xmlOldView2\obj\Debug\xmlOldViewer.pdb
+C:\Users\user\Source\Repos\denOfEvilSoft\xmlOldView2\bin\Debug\Microsoft.WindowsAPICodePack.dll
+C:\Users\user\Source\Repos\denOfEvilSoft\xmlOldView2\bin\Debug\Microsoft.WindowsAPICodePack.xml
