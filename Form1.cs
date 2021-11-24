@@ -17,6 +17,7 @@ using System.Windows.Forms;
 
 using System.IO;
 using System.Xml;
+using System.Xml.Linq;
 using Microsoft.WindowsAPICodePack.Dialogs;
 
 using MySql.Data.MySqlClient;
@@ -585,38 +586,25 @@ namespace xmlOldViewer
                     fileName += DateTime.Now;
                     fileName += ".xml";
                 }
-
-                FolderBrowserDialog select = new FolderBrowserDialog();
-                select.ShowDialog();
-                if(select.ShowDialog() == DialogResult.OK)
-                {
-                    string Path = select.SelectedPath;
-                    Path += fileName;
-                    MessageBox.Show(Path);
-                    return;
-                }
-                
-                
-                using (XmlWriter wr = XmlWriter.Create(@"C:\Users\user\Desktop\export.xml"))
+                using (XmlWriter wr = XmlWriter.Create(@"C:\export.xml"))
                 {
                     wr.WriteStartDocument();
-                    wr.WriteStartElement("경기도무료급식소");
-
+                    wr.WriteStartElement("schema","경기도무료급식소", "https://schema.org/");
                     for (int index = 0; index < l_names.Items.Count; index++)
                     {
-                        wr.WriteStartElement("급식소");
+                        wr.WriteStartElement("schema", "Restaurant", "급식소");
                         l_names.SelectedIndex = index;
                         forPrintClass getClass = (forPrintClass)l_names.SelectedItem;
-                        wr.WriteElementString("이름", getClass.name);
-                        wr.WriteElementString("주소", getClass.loaction);
-                        wr.WriteElementString("관리기관", getClass.institution);
-                        wr.WriteElementString("대상", getClass.target);
-                        wr.WriteElementString("날짜", getClass.dayOfTheWeek);
-                        wr.WriteElementString("시간", getClass.time);
+                        wr.WriteElementString("schema", "name", getClass.name);
+                        wr.WriteElementString("schema", "주소", getClass.loaction, "location");
+                        wr.WriteElementString("schema", "관리기관", getClass.institution, "Organization");
+                        wr.WriteElementString("schema", "대상", getClass.target, "target");
+                        wr.WriteElementString("schema", "날짜", getClass.dayOfTheWeek, "DayOfWeek");
+                        wr.WriteElementString("schema", "시간", getClass.time, "startTime");
                         wr.WriteStartElement("사고정보");
-                        wr.WriteElementString("사망", getClass.dead.ToString());
-                        wr.WriteElementString("중상", getClass.severelyInjured.ToString());
-                        wr.WriteElementString("경상", getClass.minorInjury.ToString());
+                        wr.WriteElementString("schema", "사망", getClass.dead.ToString(), "number");
+                        wr.WriteElementString("schema", "중상", getClass.severelyInjured.ToString(), "number");
+                        wr.WriteElementString("schema", "경상", getClass.minorInjury.ToString(), "number");
                         wr.WriteEndElement();
                         wr.WriteEndElement();
                     }
