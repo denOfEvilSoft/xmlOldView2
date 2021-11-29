@@ -31,7 +31,6 @@ namespace xmlOldViewer
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(mainForm));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.c_searchCheck = new System.Windows.Forms.CheckBox();
             this.b_searchAll = new System.Windows.Forms.Button();
             this.b_export = new System.Windows.Forms.Button();
             this.b_search = new System.Windows.Forms.Button();
@@ -50,10 +49,8 @@ namespace xmlOldViewer
             this.l_changeMinorInjury = new System.Windows.Forms.Label();
             this.l_changeDead = new System.Windows.Forms.Label();
             this.l_changeSeverelyInjured = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
             this.l_changeAll = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
@@ -68,6 +65,8 @@ namespace xmlOldViewer
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.l_locations = new System.Windows.Forms.ListBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -78,35 +77,27 @@ namespace xmlOldViewer
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.c_searchCheck);
             this.groupBox1.Controls.Add(this.b_searchAll);
             this.groupBox1.Controls.Add(this.b_export);
             this.groupBox1.Controls.Add(this.b_search);
             this.groupBox1.Controls.Add(this.t_locationInput);
             this.groupBox1.Controls.Add(this.c_location1);
             this.groupBox1.Controls.Add(this.pictureBox2);
-            this.groupBox1.Location = new System.Drawing.Point(12, 32);
+            this.groupBox1.Location = new System.Drawing.Point(17, 48);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(263, 306);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox1.Size = new System.Drawing.Size(376, 459);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "검색";
             // 
-            // c_searchCheck
-            // 
-            this.c_searchCheck.AutoSize = true;
-            this.c_searchCheck.Location = new System.Drawing.Point(222, 21);
-            this.c_searchCheck.Name = "c_searchCheck";
-            this.c_searchCheck.Size = new System.Drawing.Size(32, 16);
-            this.c_searchCheck.TabIndex = 9;
-            this.c_searchCheck.Text = "X";
-            this.c_searchCheck.UseVisualStyleBackColor = true;
-            // 
             // b_searchAll
             // 
-            this.b_searchAll.Location = new System.Drawing.Point(68, 276);
+            this.b_searchAll.Location = new System.Drawing.Point(97, 414);
+            this.b_searchAll.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.b_searchAll.Name = "b_searchAll";
-            this.b_searchAll.Size = new System.Drawing.Size(83, 23);
+            this.b_searchAll.Size = new System.Drawing.Size(119, 34);
             this.b_searchAll.TabIndex = 8;
             this.b_searchAll.Text = "전부 검색";
             this.b_searchAll.UseVisualStyleBackColor = true;
@@ -114,9 +105,10 @@ namespace xmlOldViewer
             // 
             // b_export
             // 
-            this.b_export.Location = new System.Drawing.Point(157, 276);
+            this.b_export.Location = new System.Drawing.Point(224, 414);
+            this.b_export.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.b_export.Name = "b_export";
-            this.b_export.Size = new System.Drawing.Size(97, 23);
+            this.b_export.Size = new System.Drawing.Size(139, 34);
             this.b_export.TabIndex = 7;
             this.b_export.Text = "내보내기 (xml)";
             this.b_export.UseVisualStyleBackColor = true;
@@ -124,9 +116,10 @@ namespace xmlOldViewer
             // 
             // b_search
             // 
-            this.b_search.Location = new System.Drawing.Point(6, 276);
+            this.b_search.Location = new System.Drawing.Point(9, 414);
+            this.b_search.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.b_search.Name = "b_search";
-            this.b_search.Size = new System.Drawing.Size(56, 23);
+            this.b_search.Size = new System.Drawing.Size(80, 34);
             this.b_search.TabIndex = 4;
             this.b_search.Text = "검색";
             this.b_search.UseVisualStyleBackColor = true;
@@ -134,9 +127,10 @@ namespace xmlOldViewer
             // 
             // t_locationInput
             // 
-            this.t_locationInput.Location = new System.Drawing.Point(133, 19);
+            this.t_locationInput.Location = new System.Drawing.Point(246, 28);
+            this.t_locationInput.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.t_locationInput.Name = "t_locationInput";
-            this.t_locationInput.Size = new System.Drawing.Size(83, 21);
+            this.t_locationInput.Size = new System.Drawing.Size(117, 28);
             this.t_locationInput.TabIndex = 3;
             this.t_locationInput.Text = "추가 검색";
             this.t_locationInput.Click += new System.EventHandler(this.t_locationInput_Click);
@@ -176,26 +170,29 @@ namespace xmlOldViewer
             "포천시",
             "하남시",
             "화성시"});
-            this.c_location1.Location = new System.Drawing.Point(6, 20);
+            this.c_location1.Location = new System.Drawing.Point(9, 30);
+            this.c_location1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.c_location1.Name = "c_location1";
-            this.c_location1.Size = new System.Drawing.Size(121, 20);
+            this.c_location1.Size = new System.Drawing.Size(229, 26);
             this.c_location1.TabIndex = 1;
             // 
             // pictureBox2
             // 
             this.pictureBox2.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.pictureBox2.Location = new System.Drawing.Point(6, 46);
+            this.pictureBox2.Location = new System.Drawing.Point(9, 69);
+            this.pictureBox2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(248, 224);
+            this.pictureBox2.Size = new System.Drawing.Size(354, 336);
             this.pictureBox2.TabIndex = 0;
             this.pictureBox2.TabStop = false;
             // 
             // pictureBox1
             // 
             this.pictureBox1.BackColor = System.Drawing.Color.DimGray;
-            this.pictureBox1.Location = new System.Drawing.Point(-9, -11);
+            this.pictureBox1.Location = new System.Drawing.Point(-13, -16);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(1114, 37);
+            this.pictureBox1.Size = new System.Drawing.Size(1591, 56);
             this.pictureBox1.TabIndex = 1;
             this.pictureBox1.TabStop = false;
             // 
@@ -204,9 +201,10 @@ namespace xmlOldViewer
             this.L_mainFromNameLabel.AutoSize = true;
             this.L_mainFromNameLabel.BackColor = System.Drawing.Color.DimGray;
             this.L_mainFromNameLabel.ForeColor = System.Drawing.Color.Transparent;
-            this.L_mainFromNameLabel.Location = new System.Drawing.Point(10, 9);
+            this.L_mainFromNameLabel.Location = new System.Drawing.Point(14, 14);
+            this.L_mainFromNameLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.L_mainFromNameLabel.Name = "L_mainFromNameLabel";
-            this.L_mainFromNameLabel.Size = new System.Drawing.Size(41, 12);
+            this.L_mainFromNameLabel.Size = new System.Drawing.Size(62, 18);
             this.L_mainFromNameLabel.TabIndex = 2;
             this.L_mainFromNameLabel.Text = "급식소";
             // 
@@ -215,9 +213,10 @@ namespace xmlOldViewer
             this.l_exitLabel.AutoSize = true;
             this.l_exitLabel.BackColor = System.Drawing.Color.DimGray;
             this.l_exitLabel.ForeColor = System.Drawing.Color.Transparent;
-            this.l_exitLabel.Location = new System.Drawing.Point(769, 9);
+            this.l_exitLabel.Location = new System.Drawing.Point(1099, 14);
+            this.l_exitLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.l_exitLabel.Name = "l_exitLabel";
-            this.l_exitLabel.Size = new System.Drawing.Size(13, 12);
+            this.l_exitLabel.Size = new System.Drawing.Size(19, 18);
             this.l_exitLabel.TabIndex = 3;
             this.l_exitLabel.Text = "X";
             this.l_exitLabel.Click += new System.EventHandler(this.l_exitLabel_Click);
@@ -227,9 +226,10 @@ namespace xmlOldViewer
             this.l_windowMinimize.AutoSize = true;
             this.l_windowMinimize.BackColor = System.Drawing.Color.DimGray;
             this.l_windowMinimize.ForeColor = System.Drawing.Color.Transparent;
-            this.l_windowMinimize.Location = new System.Drawing.Point(752, 9);
+            this.l_windowMinimize.Location = new System.Drawing.Point(1074, 14);
+            this.l_windowMinimize.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.l_windowMinimize.Name = "l_windowMinimize";
-            this.l_windowMinimize.Size = new System.Drawing.Size(11, 12);
+            this.l_windowMinimize.Size = new System.Drawing.Size(17, 18);
             this.l_windowMinimize.TabIndex = 4;
             this.l_windowMinimize.Text = "_";
             this.l_windowMinimize.Click += new System.EventHandler(this.l_windowMinimize_Click);
@@ -237,21 +237,26 @@ namespace xmlOldViewer
             // l_names
             // 
             this.l_names.FormattingEnabled = true;
-            this.l_names.ItemHeight = 12;
-            this.l_names.Location = new System.Drawing.Point(6, 20);
+            this.l_names.ItemHeight = 18;
+            this.l_names.Location = new System.Drawing.Point(9, 30);
+            this.l_names.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.l_names.Name = "l_names";
-            this.l_names.Size = new System.Drawing.Size(162, 280);
+            this.l_names.Size = new System.Drawing.Size(230, 418);
             this.l_names.TabIndex = 5;
             this.l_names.SelectedIndexChanged += new System.EventHandler(this.l_names_SelectedIndexChanged);
             // 
             // g_data
             // 
+            this.g_data.Controls.Add(this.label1);
+            this.g_data.Controls.Add(this.l_locations);
             this.g_data.Controls.Add(this.groupBox4);
             this.g_data.Controls.Add(this.groupBox3);
             this.g_data.Controls.Add(this.l_names);
-            this.g_data.Location = new System.Drawing.Point(281, 32);
+            this.g_data.Location = new System.Drawing.Point(401, 48);
+            this.g_data.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.g_data.Name = "g_data";
-            this.g_data.Size = new System.Drawing.Size(501, 306);
+            this.g_data.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.g_data.Size = new System.Drawing.Size(955, 459);
             this.g_data.TabIndex = 6;
             this.g_data.TabStop = false;
             this.g_data.Text = "결과 (검색 대기중)";
@@ -263,16 +268,16 @@ namespace xmlOldViewer
             this.groupBox4.Controls.Add(this.l_changeMinorInjury);
             this.groupBox4.Controls.Add(this.l_changeDead);
             this.groupBox4.Controls.Add(this.l_changeSeverelyInjured);
-            this.groupBox4.Controls.Add(this.label9);
             this.groupBox4.Controls.Add(this.l_changeAll);
             this.groupBox4.Controls.Add(this.label11);
-            this.groupBox4.Controls.Add(this.label12);
             this.groupBox4.Controls.Add(this.label13);
             this.groupBox4.Controls.Add(this.label14);
             this.groupBox4.Controls.Add(this.label15);
-            this.groupBox4.Location = new System.Drawing.Point(174, 155);
+            this.groupBox4.Location = new System.Drawing.Point(249, 232);
+            this.groupBox4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(319, 144);
+            this.groupBox4.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox4.Size = new System.Drawing.Size(456, 216);
             this.groupBox4.TabIndex = 16;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "근처 사고 정보";
@@ -280,108 +285,100 @@ namespace xmlOldViewer
             // l_changeRate
             // 
             this.l_changeRate.AutoSize = true;
-            this.l_changeRate.Location = new System.Drawing.Point(73, 107);
+            this.l_changeRate.Location = new System.Drawing.Point(104, 160);
+            this.l_changeRate.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.l_changeRate.Name = "l_changeRate";
-            this.l_changeRate.Size = new System.Drawing.Size(29, 12);
+            this.l_changeRate.Size = new System.Drawing.Size(44, 18);
             this.l_changeRate.TabIndex = 31;
             this.l_changeRate.Text = "이름";
             // 
             // label17
             // 
             this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(6, 107);
+            this.label17.Location = new System.Drawing.Point(9, 160);
+            this.label17.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(69, 12);
+            this.label17.Size = new System.Drawing.Size(104, 18);
             this.label17.TabIndex = 30;
             this.label17.Text = "위험 점수 : ";
             // 
             // l_changeMinorInjury
             // 
             this.l_changeMinorInjury.AutoSize = true;
-            this.l_changeMinorInjury.Location = new System.Drawing.Point(73, 34);
+            this.l_changeMinorInjury.Location = new System.Drawing.Point(104, 51);
+            this.l_changeMinorInjury.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.l_changeMinorInjury.Name = "l_changeMinorInjury";
-            this.l_changeMinorInjury.Size = new System.Drawing.Size(29, 12);
+            this.l_changeMinorInjury.Size = new System.Drawing.Size(44, 18);
             this.l_changeMinorInjury.TabIndex = 29;
             this.l_changeMinorInjury.Text = "이름";
             // 
             // l_changeDead
             // 
             this.l_changeDead.AutoSize = true;
-            this.l_changeDead.Location = new System.Drawing.Point(73, 68);
+            this.l_changeDead.Location = new System.Drawing.Point(104, 102);
+            this.l_changeDead.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.l_changeDead.Name = "l_changeDead";
-            this.l_changeDead.Size = new System.Drawing.Size(29, 12);
+            this.l_changeDead.Size = new System.Drawing.Size(44, 18);
             this.l_changeDead.TabIndex = 28;
             this.l_changeDead.Text = "이름";
             // 
             // l_changeSeverelyInjured
             // 
             this.l_changeSeverelyInjured.AutoSize = true;
-            this.l_changeSeverelyInjured.Location = new System.Drawing.Point(73, 51);
+            this.l_changeSeverelyInjured.Location = new System.Drawing.Point(104, 76);
+            this.l_changeSeverelyInjured.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.l_changeSeverelyInjured.Name = "l_changeSeverelyInjured";
-            this.l_changeSeverelyInjured.Size = new System.Drawing.Size(29, 12);
+            this.l_changeSeverelyInjured.Size = new System.Drawing.Size(44, 18);
             this.l_changeSeverelyInjured.TabIndex = 27;
             this.l_changeSeverelyInjured.Text = "이름";
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(73, 85);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(29, 12);
-            this.label9.TabIndex = 26;
-            this.label9.Text = "이름";
             // 
             // l_changeAll
             // 
             this.l_changeAll.AutoSize = true;
-            this.l_changeAll.Location = new System.Drawing.Point(73, 17);
+            this.l_changeAll.Location = new System.Drawing.Point(104, 26);
+            this.l_changeAll.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.l_changeAll.Name = "l_changeAll";
-            this.l_changeAll.Size = new System.Drawing.Size(29, 12);
+            this.l_changeAll.Size = new System.Drawing.Size(44, 18);
             this.l_changeAll.TabIndex = 25;
             this.l_changeAll.Text = "이름";
             // 
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(22, 34);
+            this.label11.Location = new System.Drawing.Point(31, 51);
+            this.label11.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(53, 12);
+            this.label11.Size = new System.Drawing.Size(80, 18);
             this.label11.TabIndex = 21;
             this.label11.Text = "경상자 : ";
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(34, 85);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(41, 12);
-            this.label12.TabIndex = 24;
-            this.label12.Text = "주소 : ";
             // 
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(22, 68);
+            this.label13.Location = new System.Drawing.Point(31, 102);
+            this.label13.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(53, 12);
+            this.label13.Size = new System.Drawing.Size(80, 18);
             this.label13.TabIndex = 23;
             this.label13.Text = "사망자 : ";
             // 
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(22, 51);
+            this.label14.Location = new System.Drawing.Point(31, 76);
+            this.label14.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(53, 12);
+            this.label14.Size = new System.Drawing.Size(80, 18);
             this.label14.TabIndex = 22;
             this.label14.Text = "중상자 : ";
             // 
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(6, 17);
+            this.label15.Location = new System.Drawing.Point(9, 26);
+            this.label15.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(69, 12);
+            this.label15.Size = new System.Drawing.Size(104, 18);
             this.label15.TabIndex = 20;
             this.label15.Text = "총 사상자 : ";
             // 
@@ -397,9 +394,11 @@ namespace xmlOldViewer
             this.groupBox3.Controls.Add(this.label5);
             this.groupBox3.Controls.Add(this.label4);
             this.groupBox3.Controls.Add(this.label2);
-            this.groupBox3.Location = new System.Drawing.Point(174, 19);
+            this.groupBox3.Location = new System.Drawing.Point(249, 28);
+            this.groupBox3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(319, 130);
+            this.groupBox3.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox3.Size = new System.Drawing.Size(456, 195);
             this.groupBox3.TabIndex = 15;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "위치 정보";
@@ -407,93 +406,122 @@ namespace xmlOldViewer
             // l_changeDayOfWeek
             // 
             this.l_changeDayOfWeek.AutoSize = true;
-            this.l_changeDayOfWeek.Location = new System.Drawing.Point(73, 34);
+            this.l_changeDayOfWeek.Location = new System.Drawing.Point(104, 51);
+            this.l_changeDayOfWeek.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.l_changeDayOfWeek.Name = "l_changeDayOfWeek";
-            this.l_changeDayOfWeek.Size = new System.Drawing.Size(0, 12);
+            this.l_changeDayOfWeek.Size = new System.Drawing.Size(0, 18);
             this.l_changeDayOfWeek.TabIndex = 19;
             // 
             // l_changeTime
             // 
             this.l_changeTime.AutoSize = true;
-            this.l_changeTime.Location = new System.Drawing.Point(73, 80);
+            this.l_changeTime.Location = new System.Drawing.Point(104, 120);
+            this.l_changeTime.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.l_changeTime.Name = "l_changeTime";
-            this.l_changeTime.Size = new System.Drawing.Size(0, 12);
+            this.l_changeTime.Size = new System.Drawing.Size(0, 18);
             this.l_changeTime.TabIndex = 18;
             // 
             // l_changeTarget
             // 
             this.l_changeTarget.AutoSize = true;
-            this.l_changeTarget.Location = new System.Drawing.Point(73, 51);
+            this.l_changeTarget.Location = new System.Drawing.Point(104, 76);
+            this.l_changeTarget.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.l_changeTarget.Name = "l_changeTarget";
-            this.l_changeTarget.Size = new System.Drawing.Size(0, 12);
+            this.l_changeTarget.Size = new System.Drawing.Size(0, 18);
             this.l_changeTarget.TabIndex = 17;
             // 
             // l_changeLocation
             // 
             this.l_changeLocation.AutoSize = true;
-            this.l_changeLocation.Location = new System.Drawing.Point(73, 97);
+            this.l_changeLocation.Location = new System.Drawing.Point(104, 146);
+            this.l_changeLocation.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.l_changeLocation.Name = "l_changeLocation";
-            this.l_changeLocation.Size = new System.Drawing.Size(0, 12);
+            this.l_changeLocation.Size = new System.Drawing.Size(0, 18);
             this.l_changeLocation.TabIndex = 16;
             // 
             // l_changeInstitution
             // 
             this.l_changeInstitution.AutoSize = true;
-            this.l_changeInstitution.Location = new System.Drawing.Point(73, 17);
+            this.l_changeInstitution.Location = new System.Drawing.Point(104, 26);
+            this.l_changeInstitution.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.l_changeInstitution.Name = "l_changeInstitution";
-            this.l_changeInstitution.Size = new System.Drawing.Size(0, 12);
+            this.l_changeInstitution.Size = new System.Drawing.Size(0, 18);
             this.l_changeInstitution.TabIndex = 15;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(26, 34);
+            this.label3.Location = new System.Drawing.Point(37, 51);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(41, 12);
+            this.label3.Size = new System.Drawing.Size(62, 18);
             this.label3.TabIndex = 11;
             this.label3.Text = "날짜 : ";
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(26, 97);
+            this.label6.Location = new System.Drawing.Point(37, 146);
+            this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(41, 12);
+            this.label6.Size = new System.Drawing.Size(62, 18);
             this.label6.TabIndex = 14;
             this.label6.Text = "주소 : ";
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(26, 80);
+            this.label5.Location = new System.Drawing.Point(37, 120);
+            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(41, 12);
+            this.label5.Size = new System.Drawing.Size(62, 18);
             this.label5.TabIndex = 13;
             this.label5.Text = "시간 : ";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(26, 51);
+            this.label4.Location = new System.Drawing.Point(37, 76);
+            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(41, 12);
+            this.label4.Size = new System.Drawing.Size(62, 18);
             this.label4.TabIndex = 12;
             this.label4.Text = "대상 : ";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(6, 17);
+            this.label2.Location = new System.Drawing.Point(9, 26);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(61, 12);
+            this.label2.Size = new System.Drawing.Size(92, 18);
             this.label2.TabIndex = 10;
             this.label2.Text = "관리기관 :";
             // 
+            // l_locations
+            // 
+            this.l_locations.FormattingEnabled = true;
+            this.l_locations.ItemHeight = 18;
+            this.l_locations.Location = new System.Drawing.Point(713, 51);
+            this.l_locations.Margin = new System.Windows.Forms.Padding(4);
+            this.l_locations.Name = "l_locations";
+            this.l_locations.Size = new System.Drawing.Size(230, 400);
+            this.l_locations.TabIndex = 17;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(713, 26);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(224, 18);
+            this.label1.TabIndex = 18;
+            this.label1.Text = "선택 급식소 주변 사고위치";
+            // 
             // mainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(794, 349);
+            this.ClientSize = new System.Drawing.Size(1370, 524);
             this.Controls.Add(this.g_data);
             this.Controls.Add(this.l_windowMinimize);
             this.Controls.Add(this.l_exitLabel);
@@ -502,6 +530,7 @@ namespace xmlOldViewer
             this.Controls.Add(this.groupBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "mainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";
@@ -510,6 +539,7 @@ namespace xmlOldViewer
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.g_data.ResumeLayout(false);
+            this.g_data.PerformLayout();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
             this.groupBox3.ResumeLayout(false);
@@ -534,7 +564,6 @@ namespace xmlOldViewer
         private System.Windows.Forms.GroupBox g_data;
         private System.Windows.Forms.Button b_export;
         private System.Windows.Forms.Button b_searchAll;
-        private System.Windows.Forms.CheckBox c_searchCheck;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Label l_changeDayOfWeek;
@@ -550,15 +579,15 @@ namespace xmlOldViewer
         private System.Windows.Forms.Label l_changeMinorInjury;
         private System.Windows.Forms.Label l_changeDead;
         private System.Windows.Forms.Label l_changeSeverelyInjured;
-        private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label l_changeAll;
         private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Label l_changeRate;
         private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ListBox l_locations;
     }
 }
 

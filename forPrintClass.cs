@@ -23,9 +23,19 @@ namespace xmlOldViewer
         public int minorInjury { get; set; }
         public double rate { get; set; }
 
+        List<string> nearBy = new List<string>();
+
         public string getName()
         {
             return name;
+        }
+        public void setNearBy(List<string> nearBy)
+        {
+            this.nearBy = nearBy.ToList();
+        }
+        public List<string> getNearBy()
+        {
+            return this.nearBy;
         }
 
         public forPrintClass(string name, string location, string institution, string number, string dbLocation, 

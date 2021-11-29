@@ -1,26 +1,18 @@
 ﻿/*
-    318 번 줄 수정중. 지금 문제가 경상이랑 중상이랑 전부 같아 아마 db 업로드 할때 잘못된듯?
-    보러간다
+    // 파일 브라우저 폼 띄우고 그곳의 기본 이름을 정하자. 기본 경로는 바탕화면으로 하고
+    // 파일 시스템으로 한다.
+    // 파일 이름은 검색 결과 기반 가변으로
+    // 리스트박스의 인스턴스마다 주소 전부 가져올 것
  */
 
 
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Configuration;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-
-using System.IO;
 using System.Xml;
-using System.Xml.Linq;
-using Microsoft.WindowsAPICodePack.Dialogs;
-
-using MySql.Data.MySqlClient;
 
 namespace xmlOldViewer
 {
@@ -37,7 +29,7 @@ namespace xmlOldViewer
         }
         private void getCounts()
         {
-            if(l_names.Items.Count > 0)
+            if (l_names.Items.Count > 0)
             {
                 g_data.Text = "결과 (" + l_names.Items.Count + "개 찾음)";
             }
@@ -56,7 +48,7 @@ namespace xmlOldViewer
 
         private void t_locationInput_Click(object sender, EventArgs e)
         {
-            if(t_locationInput.Text =="추가 검색")
+            if (t_locationInput.Text == "추가 검색")
             {
                 t_locationInput.Text = "";
             }
@@ -70,9 +62,9 @@ namespace xmlOldViewer
             string query = null;
             searchString[0] = c_location1.Text; // 콤보박스
             searchString[1] = null; // 추가검색
-            using(MySqlConnection DBconnection = new MySqlConnection())
+            using (MySqlConnection DBconnection = new MySqlConnection())
             {
-                using(MySqlCommand cmd = new MySqlCommand())
+                using (MySqlCommand cmd = new MySqlCommand())
                 {
                     try
                     {
@@ -94,7 +86,7 @@ namespace xmlOldViewer
                                 MessageBox.Show("검색 결과가 없어요");
                                 return;
                             }
-                            if(g_data.Text == "결과 (검색 대기중)")
+                            if (g_data.Text == "결과 (검색 대기중)")
                             {
                                 g_data.Text = "결과 (";
                             }
@@ -298,7 +290,7 @@ namespace xmlOldViewer
                                     l_names.SelectedItem = setData;
                                 }
                             }
-                            getCounts();
+                            getCounts(); // 라벨이 몇개 찾았는지 표시
                             for (int index = 0; index < l_names.Items.Count; index++)
                             {
                                 double forRate = 0;
@@ -318,12 +310,12 @@ namespace xmlOldViewer
                                 "WHERE Si = '" + searchString[0] + "';";
                             cmd.CommandText = query;
                             int isDataThere = Convert.ToInt32(cmd.ExecuteScalar());
-                            if(isDataThere == 0)
+                            if (isDataThere == 0)
                             {
                                 MessageBox.Show("검색된 데이터가 없어요");
                                 return;
                             }
-                            if(g_data.Text == "결과 (검색 대기중)")
+                            if (g_data.Text == "결과 (검색 대기중)")
                             {
                                 g_data.Text = "결과 (";
                             }
@@ -546,7 +538,7 @@ namespace xmlOldViewer
                             l_names.SelectedIndex = 0;
                         }
                     }
-                    catch(Exception ex)
+                    catch (Exception ex)
                     {
                         MessageBox.Show(ex.ToString());
                     }
@@ -558,6 +550,8 @@ namespace xmlOldViewer
         private void b_export_Click(object sender, EventArgs e)
         {
             // 파일 브라우저 폼 띄우고 그곳의 기본 이름을 정하자. 기본 경로는 바탕화면으로 하고
+            // 파일 시스템으로 한다.
+            // 파일 이름은 검색 결과 기반 가변으로
             this.Cursor = Cursors.WaitCursor;
             try
             {
@@ -589,7 +583,7 @@ namespace xmlOldViewer
                 using (XmlWriter wr = XmlWriter.Create(@"C:\export.xml"))
                 {
                     wr.WriteStartDocument();
-                    wr.WriteStartElement("schema","경기도무료급식소", "https://schema.org/");
+                    wr.WriteStartElement("schema", "경기도무료급식소", "https://schema.org/");
                     for (int index = 0; index < l_names.Items.Count; index++)
                     {
                         wr.WriteStartElement("schema", "Restaurant", "급식소");
@@ -613,19 +607,20 @@ namespace xmlOldViewer
                 }
                 this.Cursor = Cursors.Default;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 this.Cursor = Cursors.Default;
                 MessageBox.Show("xml export \n\n" + ex);
             }
-            
+
         }
 
         private void l_names_SelectedIndexChanged(object sender, EventArgs e)
         {
             forPrintClass forShow;
-            if(l_names.SelectedIndex != -1)
+            if (l_names.SelectedIndex != -1)
             {
+                l_locations.Items.Clear();
                 forShow = (forPrintClass)l_names.SelectedItem;
                 forPrintClass getAndConvert = forShow;
                 // 위치 정보 그룹박스 안의 라벨 변경
@@ -643,13 +638,20 @@ namespace xmlOldViewer
                 l_changeSeverelyInjured.Text = forLabel[1].ToString();
                 l_changeMinorInjury.Text = forLabel[2].ToString();
                 l_changeAll.Text = (forLabel[0] + forLabel[1] + forLabel[2]).ToString();
-                l_changeRate.Text = forShow.rate.ToString();
+                l_changeRate.Text = forShow.rate.ToString(); forPrintClass addNearBy;
+                List<string> forList;
+                addNearBy = (forPrintClass)l_names.SelectedItem;
+                forList = addNearBy.getNearBy().ToList();
+                foreach (string get in forList)
+                {
+                    l_locations.Items.Add(get);
+                }
             }
         }
 
         private void t_locationInput_Leave(object sender, EventArgs e)
         {
-            if(t_locationInput.Text =="" || t_locationInput.Text==" ")
+            if (t_locationInput.Text == "" || t_locationInput.Text == " ")
             {
                 t_locationInput.Text = "추가 검색";
             }
@@ -658,6 +660,7 @@ namespace xmlOldViewer
         private void b_searchAll_Click(object sender, EventArgs e)
         {
             l_names.Items.Clear();
+            l_locations.Items.Clear();
             try
             {
                 this.Cursor = Cursors.WaitCursor;
@@ -708,20 +711,21 @@ namespace xmlOldViewer
                         int[] counts = new int[3];
                         counts[0] = counts[1] = counts[2] = 0; // 0 : 사망 1 : 중상 2 : 경상
                         query =
-                            "SELECT dead, severelyInjured, minorInjury, latitude, longtitude " +
+                            "SELECT dead, severelyInjured, minorInjury, latitude, longtitude, Other2 " +
                             "FROM 사고다발지현황";
                         cmd.CommandText = query;
                         forPrintClass getLoaction;
-
                         for (int index = 0; index < l_names.Items.Count; index++)
                         {
                             using (MySqlDataReader reader = cmd.ExecuteReader())
                             {
                                 l_names.SelectedIndex = index;
                                 getLoaction = (forPrintClass)l_names.SelectedItem;
+                                List<string> nearBy = new List<string>(); // 근처 주소가 들어간다
                                 while (reader.Read())
                                 {
                                     double latitude; double longitude;
+                                    // 리스트로 선언하자
                                     latitude = reader.GetDouble(3);
                                     longitude = reader.GetDouble(4); // 사고다발지의 위도경도
                                     // 여기서 판별한다
@@ -731,44 +735,50 @@ namespace xmlOldViewer
                                         counts[0] += reader.GetInt32(0);
                                         counts[1] += reader.GetInt32(1);
                                         counts[2] += reader.GetInt32(2);
+                                        nearBy.Add(reader.GetString(5));
                                     }
                                     // 2 사분면
-                                    if(((latitude <= getLoaction.latitude) && (longitude >= getLoaction.longtitude)) && (((latitude - getLoaction.latitude) > -ca) && (longtitude - getLoaction.longtitude) < ca))
+                                    if (((latitude <= getLoaction.latitude) && (longitude >= getLoaction.longtitude)) && (((latitude - getLoaction.latitude) > -ca) && (longtitude - getLoaction.longtitude) < ca))
                                     {
                                         counts[0] += reader.GetInt32(0);
                                         counts[1] += reader.GetInt32(1);
                                         counts[2] += reader.GetInt32(2);
+                                        nearBy.Add(reader.GetString(5));
                                     }
                                     // 3 사분면
-                                    if(((latitude <= getLoaction.latitude) && (longitude <= getLoaction.longtitude)) && (((latitude - getLoaction.latitude) > -ca) && (longtitude - getLoaction.longtitude) > -ca))
+                                    if (((latitude <= getLoaction.latitude) && (longitude <= getLoaction.longtitude)) && (((latitude - getLoaction.latitude) > -ca) && (longtitude - getLoaction.longtitude) > -ca))
                                     {
                                         counts[0] += reader.GetInt32(0);
                                         counts[1] += reader.GetInt32(1);
                                         counts[2] += reader.GetInt32(2);
+                                        nearBy.Add(reader.GetString(5));
                                     }
-                                    if(((latitude >= getLoaction.latitude) && (longitude <= getLoaction.longtitude)) && (((latitude - getLoaction.latitude) < ca) && (longtitude - getLoaction.longtitude) > -ca))
+                                    if (((latitude >= getLoaction.latitude) && (longitude <= getLoaction.longtitude)) && (((latitude - getLoaction.latitude) < ca) && (longtitude - getLoaction.longtitude) > -ca))
                                     {
                                         counts[0] += reader.GetInt32(0);
                                         counts[1] += reader.GetInt32(1);
                                         counts[2] += reader.GetInt32(2);
+                                        nearBy.Add(reader.GetString(5));
                                     }
                                 }
                                 forPrintClass setData = (forPrintClass)l_names.SelectedItem;
+                                setData.setNearBy(nearBy);
                                 setData.dead = counts[0];
                                 setData.severelyInjured = counts[1];
                                 setData.minorInjury = counts[2];
-                                l_names.SelectedItem = setData;
+                                l_names.SelectedItem = setData; // 리스트박스의 각 인스턴스에 대입
                                 counts[0] = counts[1] = counts[2] = 0; // 0 : 사망 1 : 중상 2 : 경상
                             }
                         }
                         query =
-                            "SELECT dead, severelyInjured, minorInjury, Latitude, Longitude " +
+                            "SELECT dead, severelyInjured, minorInjury, Latitude, Longitude, nearBy " +
                             "FROM 보행노인사고다발지현황";
                         cmd.CommandText = query;
                         for (int index = 0; index < l_names.Items.Count; index++)
                         {
                             l_names.SelectedIndex = index;
                             getLoaction = (forPrintClass)l_names.SelectedItem;
+                            List<string> nearBy = new List<string>(); // 근처 주소가 들어간다
                             counts[0] = getLoaction.dead;
                             counts[1] = getLoaction.severelyInjured;
                             counts[2] = getLoaction.minorInjury;
@@ -784,6 +794,7 @@ namespace xmlOldViewer
                                         counts[0] += reader.GetInt32(0);
                                         counts[1] += reader.GetInt32(1);
                                         counts[2] += reader.GetInt32(2);
+                                        nearBy.Add(reader.GetString(5));
                                     }
                                     // 2 사분면
                                     if (((latitude <= getLoaction.latitude) && (longitude >= getLoaction.longtitude)) && (((latitude - getLoaction.latitude) > -ca) && (longtitude - getLoaction.longtitude) < ca))
@@ -791,6 +802,7 @@ namespace xmlOldViewer
                                         counts[0] += reader.GetInt32(0);
                                         counts[1] += reader.GetInt32(1);
                                         counts[2] += reader.GetInt32(2);
+                                        nearBy.Add(reader.GetString(5));
                                     }
                                     // 3 사분면
                                     if (((latitude <= getLoaction.latitude) && (longitude <= getLoaction.longtitude)) && (((latitude - getLoaction.latitude) > -ca) && (longtitude - getLoaction.longtitude) > -ca))
@@ -798,15 +810,18 @@ namespace xmlOldViewer
                                         counts[0] += reader.GetInt32(0);
                                         counts[1] += reader.GetInt32(1);
                                         counts[2] += reader.GetInt32(2);
+                                        nearBy.Add(reader.GetString(5));
                                     }
                                     if (((latitude >= getLoaction.latitude) && (longitude <= getLoaction.longtitude)) && (((latitude - getLoaction.latitude) < ca) && (longtitude - getLoaction.longtitude) > -ca))
                                     {
                                         counts[0] += reader.GetInt32(0);
                                         counts[1] += reader.GetInt32(1);
                                         counts[2] += reader.GetInt32(2);
+                                        nearBy.Add(reader.GetString(5));
                                     }
                                 }
                                 forPrintClass setData = (forPrintClass)l_names.SelectedItem;
+                                setData.setNearBy(nearBy);
                                 setData.dead = counts[0];
                                 setData.severelyInjured = counts[1];
                                 setData.minorInjury = counts[2];
@@ -814,7 +829,7 @@ namespace xmlOldViewer
                             }
                         }
                         query =
-                            "SELECT dead, severelyInjured, minorInjury, Latitude, Longitude " +
+                            "SELECT dead, severelyInjured, minorInjury, Latitude, Longitude, nearBy " +
                             "FROM 무단횡단사고다발지현황";
                         cmd.CommandText = query;
                         for (int index = 0; index < l_names.Items.Count; index++)
@@ -823,6 +838,7 @@ namespace xmlOldViewer
                             {
                                 l_names.SelectedIndex = index;
                                 getLoaction = (forPrintClass)l_names.SelectedItem;
+                                List<string> nearBy = new List<string>(); // 근처 주소가 들어간다
                                 counts[0] = getLoaction.dead;
                                 counts[1] = getLoaction.severelyInjured;
                                 counts[2] = getLoaction.minorInjury;
@@ -838,6 +854,7 @@ namespace xmlOldViewer
                                         counts[0] += reader.GetInt32(0);
                                         counts[1] += reader.GetInt32(1);
                                         counts[2] += reader.GetInt32(2);
+                                        nearBy.Add(reader.GetString(5));
                                     }
                                     // 2 사분면
                                     if (((latitude <= getLoaction.latitude) && (longitude >= getLoaction.longtitude)) && (((latitude - getLoaction.latitude) > -ca) && (longtitude - getLoaction.longtitude) < ca))
@@ -845,6 +862,7 @@ namespace xmlOldViewer
                                         counts[0] += reader.GetInt32(0);
                                         counts[1] += reader.GetInt32(1);
                                         counts[2] += reader.GetInt32(2);
+                                        nearBy.Add(reader.GetString(5));
                                     }
                                     // 3 사분면
                                     if (((latitude <= getLoaction.latitude) && (longitude <= getLoaction.longtitude)) && (((latitude - getLoaction.latitude) > -ca) && (longtitude - getLoaction.longtitude) > -ca))
@@ -852,15 +870,18 @@ namespace xmlOldViewer
                                         counts[0] += reader.GetInt32(0);
                                         counts[1] += reader.GetInt32(1);
                                         counts[2] += reader.GetInt32(2);
+                                        nearBy.Add(reader.GetString(5));
                                     }
                                     if (((latitude >= getLoaction.latitude) && (longitude <= getLoaction.longtitude)) && (((latitude - getLoaction.latitude) < ca) && (longtitude - getLoaction.longtitude) > -ca))
                                     {
                                         counts[0] += reader.GetInt32(0);
                                         counts[1] += reader.GetInt32(1);
                                         counts[2] += reader.GetInt32(2);
+                                        nearBy.Add(reader.GetString(5));
                                     }
                                 }
                                 forPrintClass setData = (forPrintClass)l_names.SelectedItem;
+                                setData.setNearBy(nearBy);
                                 setData.dead = counts[0];
                                 setData.severelyInjured = counts[1];
                                 setData.minorInjury = counts[2];
@@ -871,7 +892,7 @@ namespace xmlOldViewer
                     }
                 }
                 getCounts();
-                for(int index = 0; index < l_names.Items.Count; index++)
+                for (int index = 0; index < l_names.Items.Count; index++)
                 {
                     double forRate = 0;
                     l_names.SelectedIndex = index;
@@ -881,13 +902,13 @@ namespace xmlOldViewer
                     l_names.SelectedItem = getData;
                 }
                 l_names.ClearSelected();
-                if(l_names.Items.Count > 0)
+                if (l_names.Items.Count > 0)
                 {
                     l_names.SelectedIndex = 0;
                 }
                 this.Cursor = Cursors.Default;
             }//asd
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show("검색할때 오류생김\n\n" + ex);
                 this.Cursor = Cursors.Default;
